@@ -1,0 +1,6 @@
+.excluded/
+.agents/
+.claude/
+.gemini/
+node_modules
+.next/
