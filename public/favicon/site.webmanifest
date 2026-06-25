@@ -1,0 +1,21 @@
+{
+  "name": "Luz Masoterapeuta",
+  "short_name": "Luz",
+  "icons": [
+    {
+      "src": "/public/favicon/web-app-manifest-192x192.png?v=20260625",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/public/favicon/web-app-manifest-512x512.png?v=20260625",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#955e5d",
+  "background_color": "#955e5d",
+  "display": "standalone"
+}
