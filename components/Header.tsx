@@ -63,7 +63,7 @@ export function Header() {
         </nav>
 
         <button
-          className="md:hidden text-[#fcfdfb] p-1"
+          className="md:hidden text-[#fcfdfb] p-2.5"
           onClick={() => setOpen(!open)}
           aria-label={open ? "Cerrar menu" : "Abrir menu"}
         >

@@ -121,7 +121,7 @@ function Carousel({
   const x = cardW > 0 ? offset - idx * (cardW + GAP) : 0;
 
   const btnClass =
-    "w-9 h-9 flex items-center justify-center rounded-full border border-[#dfa82b]/40 text-[#dfa82b] hover:bg-[#dfa82b]/10 transition-colors";
+    "w-11 h-11 flex items-center justify-center rounded-full border border-[#dfa82b]/40 text-[#dfa82b] hover:bg-[#dfa82b]/10 transition-colors";
 
   return (
     <div>
