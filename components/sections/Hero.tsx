@@ -221,7 +221,6 @@ export function Hero() {
             sizes="50vw"
           />
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#fff7e8]/20 via-transparent to-transparent pointer-events-none" />
       </motion.div>
     </section>
   );
