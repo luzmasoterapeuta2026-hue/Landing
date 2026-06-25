@@ -15,7 +15,7 @@ const PLATFORMS = [
   {
     name: "TikTok",
     handle: "@luz_masoterapeuta_holistik",
-    href: "https://tiktok.com/@luz_masoterapeuta_holistik",
+    href: "https://www.tiktok.com/@luz_masoterapia_holistik",
     Icon: TiktokLogo,
     accent: "#2a2522",
   },
@@ -27,10 +27,9 @@ export async function Videos() {
   return (
     <section
       id="videos"
-      className="relative py-24 px-6 scroll-mt-20"
+      className="relative py-24 px-6 scroll-mt-20 bg-scroll md:bg-fixed"
       style={{
         backgroundImage: "url('/network/network-background.webp')",
-        backgroundAttachment: "fixed",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundColor: "#111010",
@@ -46,19 +45,20 @@ export async function Videos() {
 
             {/* Left: title + paragraph */}
             <div className="max-w-xl text-center md:text-left">
-              <p className="font-[family-name:var(--font-inter)] text-[11px] tracking-[0.22em] uppercase text-[#dfa82b] mb-4 md:text-left">
+              <p className="font-[family-name:var(--font-inter)] text-[11px] md:text-[13px] tracking-[0.22em] uppercase text-[#dfa82b] mb-4 md:text-left">
                 Contenido
               </p>
               <h2
                 className="font-[family-name:var(--font-cormorant)] text-[#fff7e8] font-light leading-tight mb-5"
-                style={{ fontSize: "clamp(2.4rem, 5vw, 4rem)" }}
+                style={{ fontSize: "clamp(2.4rem, 5vw, 5rem)" }}
               >
                 Seguinos en<br />
                 <em className="text-[#dfa82b]">las redes</em>
               </h2>
-              <p className="font-[family-name:var(--font-inter)] text-[#fff7e8]/50 text-base leading-relaxed">
-                Tecnicas, reflexiones y herramientas para tu practica holistica,
-                cada semana en Instagram y TikTok.
+              <p className="font-[family-name:var(--font-inter)] text-[#fff7e8]/50 text-base md:text-lg leading-relaxed">
+                Contenido semanal para terapeutas que buscan{" "}
+                <em className="text-[#dfa82b] not-italic font-medium">ir mas alla de la tecnica.</em>{" "}
+                Reflexiones, herramientas y sabiduria holistica — cada semana.
               </p>
             </div>
 
@@ -76,10 +76,10 @@ export async function Videos() {
                     <Icon size={20} weight="fill" className="text-[#fff7e8]/60 group-hover:text-[#dfa82b] transition-colors" />
                   </div>
                   <div className="min-w-0">
-                    <p className="font-[family-name:var(--font-inter)] text-[11px] uppercase tracking-wider text-[#fff7e8]/35 mb-0.5">
+                    <p className="font-[family-name:var(--font-inter)] text-[11px] md:text-[13px] uppercase tracking-wider text-[#fff7e8]/35 mb-0.5">
                       {name}
                     </p>
-                    <p className="font-[family-name:var(--font-inter)] text-sm text-[#fff7e8]/75 group-hover:text-[#fff7e8] transition-colors truncate">
+                    <p className="font-[family-name:var(--font-inter)] text-sm md:text-base text-[#fff7e8]/75 group-hover:text-[#fff7e8] transition-colors truncate">
                       {handle}
                     </p>
                   </div>
