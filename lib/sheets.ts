@@ -49,7 +49,8 @@ function toBool(val: string): boolean {
 
 async function fetchCsv(url: string): Promise<Record<string, string>[]> {
   try {
-    const res = await fetch(url, { next: { revalidate: 3600 } });
+    const isDev = process.env.NODE_ENV === "development";
+    const res = await fetch(url, { next: { revalidate: isDev ? 0 : 3600 } });
     if (!res.ok) {
       if (process.env.NODE_ENV !== "production") {
         console.error(`[sheets] fetch failed ${res.status} ${res.statusText} — ${url}`);
@@ -105,6 +106,5 @@ export async function getVideos(): Promise<Video[]> {
       activo: true,
       orden: parseInt(r.orden) || 99,
     }))
-    .sort((a, b) => a.orden - b.orden)
-    .slice(0, 3);
+    .sort((a, b) => a.orden - b.orden);
 }

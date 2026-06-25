@@ -1,0 +1,139 @@
+"use client";
+
+import { useEffect } from "react";
+import Image from "next/image";
+import { motion } from "motion/react";
+import { X, MapPin, Calendar, Clock, WhatsappLogo, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import type { Curso } from "@/lib/types";
+
+const CATEGORIA_COLORS: Record<string, string> = {
+  "Tecnico":    "bg-[#c45c3a]/10 text-[#c45c3a]",
+  "Holistico":  "bg-[#965e5d]/10 text-[#965e5d]",
+  "Energetico": "bg-[#dfa82b]/10 text-[#9a7020]",
+  "Gabinete":   "bg-[#2a2522]/8 text-[#2a2522]/70",
+};
+
+const PLACEHOLDER_SEEDS: Record<string, string> = {
+  "Tecnico":    "massage-therapy-hands",
+  "Holistico":  "holistic-nature-flowers",
+  "Energetico": "crystals-energy-light",
+  "Gabinete":   "therapy-room-calm",
+};
+
+export function CourseModal({ curso, onClose }: { curso: Curso; onClose: () => void }) {
+  const imageSrc =
+    curso.imagen ||
+    `https://picsum.photos/seed/${PLACEHOLDER_SEEDS[curso.categoria] ?? "wellness-holistic"}/800/500`;
+  const colorClass = CATEGORIA_COLORS[curso.categoria] ?? "bg-[#965e5d]/10 text-[#965e5d]";
+  const ctaHref =
+    curso.cta_tipo === "formulario" && curso.cta_link
+      ? curso.cta_link
+      : `https://wa.me/5491123467200?text=Hola+Luz%2C+me+interesa+el+curso+${encodeURIComponent(curso.nombre)}`;
+  const isExternal = curso.cta_tipo === "formulario";
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [onClose]);
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-[200] flex items-end md:items-center justify-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      onClick={onClose}
+    >
+      <div className="absolute inset-0 bg-[#2a2522]/65 backdrop-blur-sm" />
+
+      <motion.div
+        className="relative z-10 bg-[#fff7e8] w-full md:max-w-xl rounded-t-3xl md:rounded-3xl overflow-hidden flex flex-col max-h-[90dvh]"
+        initial={{ y: "100%", opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: "100%", opacity: 0 }}
+        transition={{ type: "spring", stiffness: 340, damping: 32 }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Image */}
+        <div className="relative h-52 md:h-64 flex-none">
+          <Image
+            src={imageSrc}
+            alt={curso.nombre}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 600px"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#2a2522]/55 to-transparent" />
+          <button
+            onClick={onClose}
+            aria-label="Cerrar"
+            className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center rounded-full bg-[#2a2522]/50 text-[#fff7e8] hover:bg-[#2a2522]/80 transition-colors"
+          >
+            <X size={18} weight="bold" />
+          </button>
+          {curso.categoria && (
+            <span className={`absolute bottom-4 left-4 font-[family-name:var(--font-inter)] text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-full ${colorClass}`}>
+              {curso.categoria}
+            </span>
+          )}
+        </div>
+
+        {/* Scrollable content */}
+        <div className="flex flex-col overflow-y-auto p-6 gap-4">
+          <h2 className="font-[family-name:var(--font-cormorant)] text-[#2a2522] text-3xl md:text-4xl font-medium leading-snug">
+            {curso.nombre}
+          </h2>
+
+          <div className="flex flex-wrap gap-x-5 gap-y-2">
+            {curso.modalidad && (
+              <span className="flex items-center gap-1.5 font-[family-name:var(--font-inter)] text-[12px] text-[#2a2522]/60">
+                <MapPin size={13} weight="fill" className="text-[#965e5d]" /> {curso.modalidad}
+              </span>
+            )}
+            {curso.fecha && (
+              <span className="flex items-center gap-1.5 font-[family-name:var(--font-inter)] text-[12px] text-[#2a2522]/60">
+                <Calendar size={13} weight="fill" className="text-[#965e5d]" /> {curso.fecha}
+              </span>
+            )}
+            {curso.duracion && (
+              <span className="flex items-center gap-1.5 font-[family-name:var(--font-inter)] text-[12px] text-[#2a2522]/60">
+                <Clock size={13} weight="fill" className="text-[#965e5d]" /> {curso.duracion}
+              </span>
+            )}
+          </div>
+
+          <div className="h-px bg-[#965e5d]/10" />
+
+          {curso.descripcion && (
+            <p className="font-[family-name:var(--font-inter)] text-[#2a2522]/70 text-sm leading-relaxed">
+              {curso.descripcion}
+            </p>
+          )}
+
+          <div className="flex items-center justify-between pt-2">
+            {curso.precio && (
+              <span className="font-[family-name:var(--font-cormorant)] text-[#dfa82b] text-2xl font-semibold">
+                {curso.precio}
+              </span>
+            )}
+            <a
+              href={ctaHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-auto flex items-center gap-2 font-[family-name:var(--font-inter)] text-sm bg-[#965e5d] text-[#fff7e8] px-6 py-3 rounded-full font-medium hover:bg-[#7d4e4d] active:scale-[0.98] transition-all duration-200"
+            >
+              {isExternal ? <ArrowUpRight size={15} weight="bold" /> : <WhatsappLogo size={15} weight="fill" />}
+              {curso.cta_texto}
+            </a>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}

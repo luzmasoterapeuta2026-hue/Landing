@@ -1,12 +1,16 @@
 "use client";
+
+import { useState } from "react";
 import type { Video } from "@/lib/types";
-import { InstagramLogo, TiktokLogo, ArrowUpRight } from "@phosphor-icons/react";
+import { InstagramLogo, TiktokLogo } from "@phosphor-icons/react/dist/ssr";
 
 function getEmbedUrl(video: Video): string | null {
   try {
     if (video.plataforma === "instagram") {
-      const match = video.url.match(/\/(reel|p)\/([A-Za-z0-9_-]+)/);
-      if (match) return `https://www.instagram.com/${match[1]}/${match[2]}/embed/`;
+      const reel = video.url.match(/\/reel\/([A-Za-z0-9_-]+)/);
+      if (reel) return `https://www.instagram.com/reel/${reel[1]}/embed/`;
+      const post = video.url.match(/\/p\/([A-Za-z0-9_-]+)/);
+      if (post) return `https://www.instagram.com/p/${post[1]}/embed/`;
     }
     if (video.plataforma === "tiktok") {
       const match = video.url.match(/\/video\/(\d+)/);
@@ -19,6 +23,7 @@ function getEmbedUrl(video: Video): string | null {
 }
 
 export function VideoEmbed({ video }: { video: Video }) {
+  const [loaded, setLoaded] = useState(false);
   const embedUrl = getEmbedUrl(video);
   const Icon = video.plataforma === "tiktok" ? TiktokLogo : InstagramLogo;
 
@@ -28,38 +33,49 @@ export function VideoEmbed({ video }: { video: Video }) {
         href={video.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="group flex flex-col items-center justify-center gap-3 aspect-[9/16] max-h-[560px] bg-[#fff7e8] border border-[#965e5d]/12 rounded-2xl hover:border-[#965e5d]/30 transition-colors"
+        className="group flex flex-col items-center justify-center gap-3 aspect-[4/5] bg-[#fff7e8] border border-[#965e5d]/12 rounded-2xl hover:border-[#965e5d]/30 transition-colors"
       >
-        <Icon size={32} weight="thin" className="text-[#965e5d]/50 group-hover:text-[#965e5d] transition-colors" />
-        <span className="font-[family-name:var(--font-inter)] text-xs text-[#2a2522]/40 group-hover:text-[#965e5d] flex items-center gap-1">
+        <Icon size={28} weight="thin" className="text-[#965e5d]/40 group-hover:text-[#965e5d] transition-colors" />
+        <span className="font-[family-name:var(--font-inter)] text-[11px] text-[#2a2522]/40 group-hover:text-[#965e5d] uppercase tracking-wider">
           Ver en {video.plataforma === "tiktok" ? "TikTok" : "Instagram"}
-          <ArrowUpRight size={11} />
         </span>
-        {video.titulo && (
-          <p className="font-[family-name:var(--font-cormorant)] text-[#2a2522]/60 text-base italic px-4 text-center">
-            {video.titulo}
-          </p>
-        )}
       </a>
     );
   }
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="relative overflow-hidden rounded-2xl bg-[#2a2522]/5" style={{ aspectRatio: "9/16", maxHeight: 560 }}>
-        <iframe
-          src={embedUrl}
-          className="absolute inset-0 w-full h-full border-0"
-          allowFullScreen
-          loading="lazy"
-          title={video.titulo ?? `Video de ${video.plataforma}`}
-        />
-      </div>
-      {video.titulo && (
-        <p className="font-[family-name:var(--font-inter)] text-[#2a2522]/50 text-xs text-center">
-          {video.titulo}
-        </p>
+    <div className="relative overflow-hidden rounded-2xl aspect-[4/5] bg-[#1e1a17]">
+
+      {/* Skeleton while loading */}
+      {!loaded && (
+        <div className="absolute inset-0 animate-pulse bg-[#fff7e8]/5 flex items-center justify-center">
+          <Icon size={32} weight="thin" className="text-[#965e5d]/30" />
+        </div>
       )}
+
+      {/* Iframe */}
+      <iframe
+        src={embedUrl}
+        className="absolute inset-0 w-full h-full border-0"
+        allowFullScreen
+        loading="lazy"
+        title={video.titulo ?? `Post de ${video.plataforma}`}
+        onLoad={() => setLoaded(true)}
+      />
+
+      {/* Top gradient mask */}
+      <div className="absolute top-0 left-0 right-0 h-10 bg-gradient-to-b from-[#2a2522] to-transparent pointer-events-none z-10" />
+
+      {/* Bottom gradient mask */}
+      <div className="absolute bottom-0 left-0 right-0 h-14 bg-gradient-to-t from-[#2a2522] to-transparent pointer-events-none z-10" />
+
+      {/* Platform badge */}
+      <div className="absolute top-3 left-3 z-20 flex items-center gap-1.5 bg-[#fff7e8]/85 backdrop-blur-sm rounded-full px-2.5 py-1">
+        <Icon size={13} weight="fill" className="text-[#965e5d]" />
+        <span className="font-[family-name:var(--font-inter)] text-[10px] text-[#965e5d] uppercase tracking-wider font-medium">
+          {video.plataforma === "tiktok" ? "TikTok" : "Instagram"}
+        </span>
+      </div>
     </div>
   );
 }

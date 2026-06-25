@@ -13,8 +13,8 @@ const PILLARS = [
 
 export function Bio() {
   return (
-    <section id="sobre-luz" className="bg-[#2a2522] py-24 px-6">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <section id="sobre-luz" className="bg-[#2a2522] py-16 md:py-0 px-6 scroll-mt-20 md:min-h-[calc(100dvh-5rem)] md:flex md:items-center">
+      <div className="w-full max-w-7xl mx-auto grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
         {/* Image with clip-path reveal */}
         <FadeUp className="relative">
           <motion.div
@@ -25,27 +25,12 @@ export function Bio() {
             transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] as const }}
           >
             <Image
-              src="https://picsum.photos/seed/holistic-therapist-woman-warm/600/800"
+              src="/about/luz-image.webp"
               alt="Luz Masoterapeuta"
               fill
-              className="object-cover"
+              className="object-contain"
               sizes="(max-width: 768px) 80vw, 40vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#2a2522]/60 to-transparent" />
-          </motion.div>
-          <motion.div
-            className="absolute -bottom-4 -right-4 md:-right-8 bg-[#dfa82b] rounded-xl px-4 py-3 shadow-lg"
-            initial={{ opacity: 0, scale: 0.8, y: 12 }}
-            whileInView={{ opacity: 1, scale: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.7, duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
-          >
-            <div className="flex items-center gap-2">
-              <BookOpen size={16} weight="fill" className="text-[#2a2522]" />
-              <span className="font-[family-name:var(--font-cormorant)] text-[#2a2522] text-sm font-semibold italic">
-                Alquimia del Ser
-              </span>
-            </div>
           </motion.div>
         </FadeUp>
 
@@ -82,7 +67,7 @@ export function Bio() {
             </p>
           </FadeUp>
 
-          <FadeUp delay={0.45} className="mt-8 pt-8 border-t border-[#fff7e8]/10 flex flex-wrap gap-6">
+          <FadeUp delay={0.45} className="mt-8 pt-8 border-t border-[#fff7e8]/10 flex flex-wrap gap-6 justify-center md:justify-start">
             {PILLARS.map((item, i) => (
               <motion.div
                 key={item.l}
