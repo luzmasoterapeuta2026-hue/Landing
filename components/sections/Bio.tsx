@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import { BookOpen } from "@phosphor-icons/react/dist/ssr";
 import { FadeUp } from "@/components/ui/FadeUp";
 
 const PILLARS = [
@@ -13,29 +12,46 @@ const PILLARS = [
 
 export function Bio() {
   return (
-    <section id="sobre-luz" className="bg-[#2a2522] py-16 md:py-0 px-6 scroll-mt-20 md:min-h-[calc(100dvh-5rem)] md:flex md:items-center">
-      <div className="w-full max-w-7xl mx-auto grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-        {/* Image with clip-path reveal */}
-        <FadeUp className="relative">
-          <motion.div
-            className="relative aspect-[3/4] max-w-sm mx-auto md:mx-0 rounded-2xl overflow-hidden"
-            initial={{ clipPath: "inset(100% 0 0 0 round 16px)" }}
-            whileInView={{ clipPath: "inset(0% 0 0 0 round 16px)" }}
-            viewport={{ once: true, margin: "-10%" }}
-            transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] as const }}
-          >
-            <Image
-              src="/about/luz-image.webp"
-              alt="Luz Masoterapeuta"
-              fill
-              className="object-contain"
-              sizes="(max-width: 768px) 80vw, 40vw"
-            />
-          </motion.div>
-        </FadeUp>
+    <section
+      id="sobre-luz"
+      className="bg-[#2a2522] scroll-mt-20 relative overflow-hidden"
+    >
+      {/* Image column: normal flow on mobile, absolute left half on desktop */}
+      <div className="relative h-[480px] md:absolute md:inset-y-0 md:left-0 md:w-1/2 md:h-auto">
+        {/* Aura */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse at 50% 80%, #dfa82b90 0%, #dfa82b44 40%, transparent 70%)",
+            filter: "blur(60px)",
+          }}
+          animate={{ scale: [1, 1.14, 1], opacity: [0.55, 1, 0.55] }}
+          transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+        />
 
-        {/* Content */}
-        <div>
+        {/* Image */}
+        <motion.div
+          className="absolute inset-x-[10%] top-[18%] bottom-0"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <Image
+            src="/about/luz-image.webp"
+            alt="Luz Masoterapeuta"
+            fill
+            className="object-contain object-bottom"
+            style={{ objectPosition: "center bottom" }}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            priority
+          />
+        </motion.div>
+      </div>
+
+      {/* Content column: offset right on desktop */}
+      <div className="md:ml-[50%] py-16 md:min-h-[calc(100dvh-5rem)] flex items-center px-6 md:px-16">
+        <div className="w-full max-w-xl">
           <FadeUp delay={0.1}>
             <p className="font-[family-name:var(--font-inter)] text-[10px] tracking-[0.22em] uppercase text-[#dfa82b] mb-5">
               Sobre Luz
