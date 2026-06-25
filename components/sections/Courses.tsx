@@ -6,17 +6,22 @@ export async function Courses() {
   const cursos = await getCursos();
 
   return (
-    <section id="cursos" className="bg-[#fff7e8] py-24 px-6">
+    <section id="cursos" className="bg-[#fff7e8] py-16 md:py-24 px-6 scroll-mt-20">
       <div className="max-w-7xl mx-auto">
-        <FadeUp className="mb-14">
+        <FadeUp className="mb-14 text-center">
+          <p className="font-[family-name:var(--font-inter)] text-[11px] tracking-[0.22em] uppercase text-[#dfa82b] mb-4">
+            Formaciones
+          </p>
           <h2
             className="font-[family-name:var(--font-cormorant)] text-[#2a2522] font-light leading-tight"
-            style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.5rem)" }}
+            style={{ fontSize: "clamp(2.4rem, 5vw, 4rem)" }}
           >
-            Formaciones disponibles
+            Aprende a sanar{" "}
+            <em className="text-[#965e5d]">desde adentro</em>
           </h2>
-          <p className="font-[family-name:var(--font-inter)] text-[#2a2522]/55 text-base mt-3 max-w-[55ch]">
-            Cursos y talleres para terapeutas que buscan integrar tecnica, energia y sabiduria.
+          <p className="font-[family-name:var(--font-inter)] text-[#2a2522]/55 text-base mt-4 max-w-[50ch] leading-relaxed mx-auto">
+            Cursos y talleres que integran tecnica, energia y sabiduria ancestral.
+            Para terapeutas que quieren ir mas profundo.
           </p>
         </FadeUp>
 

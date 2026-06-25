@@ -4,3 +4,5 @@
 .gemini/
 node_modules
 .next/
+*.tsbuildinfo
+tsconfig.tsbuildinfo
