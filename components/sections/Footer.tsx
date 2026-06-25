@@ -3,7 +3,7 @@ import { InstagramLogo, TiktokLogo, WhatsappLogo } from "@phosphor-icons/react/d
 
 const SOCIALS = [
   { label: "Instagram", href: "https://instagram.com/luz_masoterapeuta",          Icon: InstagramLogo },
-  { label: "TikTok",    href: "https://tiktok.com/@luz_masoterapeuta_holistik",   Icon: TiktokLogo   },
+  { label: "TikTok",    href: "https://www.tiktok.com/@luz_masoterapia_holistik",   Icon: TiktokLogo   },
   { label: "WhatsApp",  href: "https://wa.me/5491123467200",                       Icon: WhatsappLogo },
 ];
 
@@ -38,7 +38,7 @@ export function Footer() {
                 className="flex flex-col items-center gap-2 text-[#fcfdfb]/45 hover:text-[#fcfdfb] transition-colors duration-200"
               >
                 <Icon size={26} weight="light" />
-                <span className="font-[family-name:var(--font-inter)] text-[10px] tracking-[0.15em] uppercase">
+                <span className="font-[family-name:var(--font-inter)] text-[10px] md:text-[13px] tracking-[0.15em] uppercase">
                   {label}
                 </span>
               </a>
@@ -54,7 +54,7 @@ export function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 border border-[#fcfdfb]/25 rounded-full px-4 py-2
-              font-[family-name:var(--font-inter)] text-[11px] tracking-wide text-[#fcfdfb]/50
+              font-[family-name:var(--font-inter)] text-[11px] md:text-[13px] tracking-wide text-[#fcfdfb]/50
               hover:border-[#dfa82b]/70 hover:text-[#dfa82b] hover:bg-[#dfa82b]/10 hover:scale-[1.05]
               active:scale-95 transition-all duration-300"
           >
@@ -62,7 +62,7 @@ export function Footer() {
           </a>
 
           {/* Copyright */}
-          <p className="font-[family-name:var(--font-inter)] text-[#fcfdfb]/30 text-[11px]">
+          <p className="font-[family-name:var(--font-inter)] text-[#fcfdfb]/30 text-[11px] md:text-[13px]">
             &copy; {new Date().getFullYear()} Solo Luz. Todos los derechos reservados.
           </p>
 

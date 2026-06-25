@@ -13,10 +13,9 @@ export async function Courses() {
     >
       {/* Blurred bg — scale-110 hides blur edges */}
       <div
-        className="absolute inset-0 scale-110"
+        className="absolute inset-0 scale-110 bg-scroll md:bg-fixed"
         style={{
           backgroundImage: "url('/curses/background.webp')",
-          backgroundAttachment: "fixed",
           backgroundSize: "cover",
           backgroundPosition: "center",
           filter: "blur(2px)",
@@ -26,19 +25,19 @@ export async function Courses() {
 
       <div className="relative z-10 max-w-7xl mx-auto">
         <FadeUp className="mb-14 text-center">
-          <p className="font-[family-name:var(--font-inter)] text-[11px] tracking-[0.22em] uppercase text-[#dfa82b] mb-4">
+          <p className="font-[family-name:var(--font-inter)] text-[11px] md:text-[13px] tracking-[0.22em] uppercase text-[#dfa82b] mb-4">
             Formaciones
           </p>
           <h2
             className="font-[family-name:var(--font-cormorant)] text-[#fff7e8] font-light leading-tight"
-            style={{ fontSize: "clamp(2.4rem, 5vw, 4rem)" }}
+            style={{ fontSize: "clamp(2.4rem, 5vw, 5rem)" }}
           >
             Aprende a sanar{" "}
             <em className="text-[#dfa82b]">desde adentro</em>
           </h2>
-          <p className="font-[family-name:var(--font-inter)] text-[#fff7e8]/60 text-base mt-4 max-w-[50ch] leading-relaxed mx-auto">
-            Cursos y talleres que integran tecnica, energia y sabiduria ancestral.
-            Para terapeutas que quieren ir mas profundo.
+          <p className="font-[family-name:var(--font-inter)] text-[#fff7e8]/60 text-base md:text-lg mt-4 max-w-[50ch] leading-relaxed mx-auto">
+            Tecnica clinica, <em className="text-[#dfa82b] not-italic font-medium">sabiduria ancestral</em> y biodecodificacion emocional.
+            Para terapeutas que quieren <em className="text-[#dfa82b] not-italic font-medium">ir mas alla de la tecnica.</em>
           </p>
         </FadeUp>
 
