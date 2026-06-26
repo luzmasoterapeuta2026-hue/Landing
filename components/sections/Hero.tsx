@@ -120,13 +120,12 @@ export function Hero() {
       {/* Mobile only: hero background image + overlay */}
       <div className="absolute inset-0 md:hidden">
         <Image
-          src="/hero/hero-image.png"
+          src="/hero/hero-mobile.webp"
           alt="Espacio de sanacion holistica"
           fill
-          className="object-cover object-center"
+          className="object-cover object-bottom"
           priority
           unoptimized
-          sizes="100vw"
         />
         <div className="absolute inset-0 bg-[#2a2522]/75" />
       </div>
@@ -206,22 +205,20 @@ export function Hero() {
       {/* Desktop right col: image with parallax + entrance animation */}
       <motion.div
         className="hidden md:block relative overflow-hidden"
-        initial={{ x: "100%", opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
+        initial={{ x: "100%" }}
+        animate={{ x: 0 }}
         transition={{ duration: 1.1, delay: 0.3, ease: EASE }}
       >
         <motion.div className="absolute -top-16 -bottom-16 left-0 right-0" style={{ y: imageY }}>
           <Image
-            src="/hero/hero-image.png"
+            src="/hero/hero-desktop.webp"
             alt="Espacio de sanacion holistica"
             fill
-            className="object-cover"
+            className="object-cover object-top"
             priority
             unoptimized
-            sizes="50vw"
           />
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#fff7e8]/20 via-transparent to-transparent pointer-events-none" />
       </motion.div>
     </section>
   );

@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "picsum.photos" },
     ],
+    formats: ["image/avif", "image/webp"],
     qualities: [75, 90, 100],
   },
 };
