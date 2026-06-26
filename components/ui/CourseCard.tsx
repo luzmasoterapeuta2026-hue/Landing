@@ -15,12 +15,22 @@ const CATEGORIA_COLORS: Record<string, string> = {
   "Gabinete": "bg-[#fff7e8]/10 text-[#fff7e8]/70",
 };
 
-const PLACEHOLDER_SEEDS: Record<string, string> = {
-  "Tecnico": "massage-therapy-hands",
-  "Holistico": "holistic-nature-flowers",
-  "Energetico": "crystals-energy-light",
-  "Gabinete": "therapy-room-calm",
-};
+const COURSE_FALLBACK_IMAGE = "/curses/background.webp";
+
+function isValidImageSrc(url: string | undefined): boolean {
+  if (!url) return false;
+  if (url.startsWith("/")) return true;
+  return url.startsWith("https://res.cloudinary.com/");
+}
+
+function isSafeUrl(url: string | undefined): url is string {
+  if (!url) return false;
+  try {
+    return new URL(url).protocol === "https:";
+  } catch {
+    return false;
+  }
+}
 
 export function CourseCard({ curso }: { curso: Curso }) {
   const [open, setOpen] = useState(false);
@@ -29,10 +39,9 @@ export function CourseCard({ curso }: { curso: Curso }) {
   useEffect(() => { setMounted(true); }, []);
 
   const colorClass = CATEGORIA_COLORS[curso.categoria] ?? "bg-[#fff7e8]/10 text-[#fff7e8]/70";
-  const imageSeed = PLACEHOLDER_SEEDS[curso.categoria] ?? "wellness-holistic";
-  const imageSrc = curso.imagen || `https://picsum.photos/seed/${imageSeed}/600/400`;
+  const imageSrc = isValidImageSrc(curso.imagen) ? curso.imagen! : COURSE_FALLBACK_IMAGE;
   const ctaHref =
-    curso.cta_tipo === "formulario" && curso.cta_link
+    curso.cta_tipo === "formulario" && isSafeUrl(curso.cta_link)
       ? curso.cta_link
       : `https://wa.me/5491123467200?text=Hola+Luz%2C+me+interesa+el+curso+${encodeURIComponent(curso.nombre)}`;
   const isExternal = curso.cta_tipo === "formulario";
