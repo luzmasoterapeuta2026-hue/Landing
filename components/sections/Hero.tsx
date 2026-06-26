@@ -115,7 +115,7 @@ export function Hero() {
       ref={sectionRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative min-h-[100dvh] overflow-hidden bg-[#2a2522] md:bg-[#fff7e8] md:grid md:grid-cols-2 md:pt-20"
+      className="relative min-h-[100svh] md:min-h-[100dvh] overflow-hidden bg-[#2a2522] md:bg-[#fff7e8] md:grid md:grid-cols-2 md:pt-20"
     >
       {/* Mobile only: hero background image + overlay */}
       <div className="absolute inset-0 md:hidden">
@@ -136,7 +136,7 @@ export function Hero() {
       ))}
 
       {/* Text column */}
-      <div className="relative z-10 flex flex-col justify-center items-center text-center px-6 md:px-16 lg:px-24 py-20 md:py-0 min-h-[100dvh] md:min-h-0">
+      <div className="relative z-10 flex flex-col justify-center items-center text-center px-6 md:px-16 lg:px-24 py-20 md:py-0 min-h-[100svh] md:min-h-0">
         <motion.p
           variants={stagger(0)}
           initial="hidden"

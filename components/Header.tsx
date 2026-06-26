@@ -1,18 +1,26 @@
 "use client";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { List, X } from "@phosphor-icons/react";
 
-const NAV = [
-  { label: "Cursos", href: "#cursos" },
-  { label: "Sobre Luz", href: "#sobre-luz" },
-  { label: "Redes", href: "#videos" },
+const NAV_ANCHORS = [
+  { label: "Cursos", anchor: "#cursos" },
+  { label: "Sobre Luz", anchor: "#sobre-luz" },
+  { label: "Redes", anchor: "#videos" },
 ];
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
+  const nav = NAV_ANCHORS.map((item) => ({
+    label: item.label,
+    href: isHome ? item.anchor : `/${item.anchor}`,
+  }));
 
   useEffect(() => {
     const handler = () => {
@@ -27,15 +35,15 @@ export function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 bg-[#965e5d] transition-all duration-300 ${scrolled
-          ? "shadow-[0_2px_16px_rgba(0,0,0,0.18)]"
-          : "max-md:-translate-y-full"
+        ? "shadow-[0_2px_16px_rgba(0,0,0,0.18)]"
+        : "max-md:-translate-y-full"
         }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <a href="#" aria-label="Solo Luz - inicio">
+        <a href={isHome ? "#" : "/"} aria-label="Luz Masoterapeuta - inicio">
           <Image
             src="/logo/trace.svg"
-            alt="Solo Luz"
+            alt="Luz Masoterapeuta"
             width={52}
             height={52}
             priority
@@ -43,7 +51,7 @@ export function Header() {
         </a>
 
         <nav className="hidden md:flex items-center gap-8">
-          {NAV.map((item) => (
+          {nav.map((item) => (
             <a
               key={item.href}
               href={item.href}
@@ -92,7 +100,7 @@ export function Header() {
               },
             }}
           >
-            {NAV.map((item, i) => (
+            {nav.map((item, i) => (
               <motion.a
                 key={item.href}
                 href={item.href}
@@ -111,7 +119,7 @@ export function Header() {
               rel="noopener noreferrer"
               initial={{ opacity: 0, x: -12 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.08 + NAV.length * 0.06, duration: 0.3 }}
+              transition={{ delay: 0.08 + nav.length * 0.06, duration: 0.3 }}
               className="font-[family-name:var(--font-inter)] text-sm bg-[#dfa82b] text-[#2a2522] px-5 py-3 rounded-full text-center font-medium"
             >
               Contacto
