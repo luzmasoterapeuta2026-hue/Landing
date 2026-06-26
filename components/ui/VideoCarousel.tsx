@@ -121,7 +121,7 @@ function Carousel({
   const x = cardW > 0 ? offset - idx * (cardW + GAP) : 0;
 
   const btnClass =
-    "w-11 h-11 flex items-center justify-center rounded-full border border-[#dfa82b]/40 text-[#dfa82b] hover:bg-[#dfa82b]/10 transition-colors";
+    "w-11 h-11 flex items-center justify-center rounded-full border border-[#dfa82b]/40 text-[#dfa82b] hover:bg-[#dfa82b]/10 transition-colors cursor-pointer";
 
   return (
     <div>
@@ -163,30 +163,16 @@ function Carousel({
         </motion.div>
       </div>
 
-      <div className="flex items-center justify-center gap-3 mt-8">
+      <div className="flex items-center justify-center gap-4 mt-8">
         <button onClick={goPrev} aria-label="Anterior" className={btnClass}>
           <CaretLeft size={16} weight="bold" />
         </button>
 
-        <div className="flex items-center gap-2">
-          {videos.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => {
-                if (animatingRef.current) return;
-                animatingRef.current = true;
-                const target = idxRef.current - activeDot + i;
-                commitIdx(target);
-              }}
-              aria-label={`Post ${i + 1}`}
-              className={`rounded-full transition-all duration-300 ${
-                i === activeDot
-                  ? "w-6 h-2 bg-[#dfa82b]"
-                  : "w-2 h-2 bg-[#dfa82b]/25 hover:bg-[#dfa82b]/50"
-              }`}
-            />
-          ))}
-        </div>
+        <span className="font-[family-name:var(--font-inter)] text-sm text-[#fff7e8]/60 tabular-nums min-w-[3rem] text-center select-none">
+          <span className="text-[#dfa82b]">{activeDot + 1}</span>
+          <span className="mx-1 text-[#dfa82b]/30">/</span>
+          <span className="text-[#dfa82b]/50">{N}</span>
+        </span>
 
         <button onClick={goNext} aria-label="Siguiente" className={btnClass}>
           <CaretRight size={16} weight="bold" />
