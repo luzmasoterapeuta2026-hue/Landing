@@ -2,9 +2,9 @@ import Image from "next/image";
 import { InstagramLogo, TiktokLogo, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 
 const SOCIALS = [
-  { label: "Instagram", href: "https://instagram.com/luz_masoterapeuta",          Icon: InstagramLogo },
-  { label: "TikTok",    href: "https://www.tiktok.com/@luz_masoterapia_holistik",   Icon: TiktokLogo   },
-  { label: "WhatsApp",  href: "https://wa.me/5491123467200",                       Icon: WhatsappLogo },
+  { label: "Instagram", href: "https://instagram.com/luz_masoterapeuta", Icon: InstagramLogo },
+  { label: "TikTok", href: "https://www.tiktok.com/@luz_masoterapia_holistik", Icon: TiktokLogo },
+  { label: "WhatsApp", href: "https://wa.me/5491123467200", Icon: WhatsappLogo },
 ];
 
 export function Footer() {
@@ -13,10 +13,10 @@ export function Footer() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-end justify-between gap-10">
 
         {/* Logo */}
-        <a href="#" aria-label="Solo Luz - inicio" className="flex-shrink-0">
+        <a href="/" aria-label="LuzMasoterapeuta - inicio" className="flex-shrink-0">
           <Image
             src="/logo/trace.svg"
-            alt="Solo Luz"
+            alt="LuzMasoterapeuta"
             width={300}
             height={300}
             style={{ width: "18.75rem", height: "18.75rem" }}
@@ -61,9 +61,26 @@ export function Footer() {
             ⚡ Powered by <strong className="font-semibold">Nosterlabs</strong>
           </a>
 
+          {/* Legal links */}
+          <div className="flex gap-4">
+            <a
+              href="/privacidad"
+              className="font-[family-name:var(--font-inter)] text-[#fcfdfb]/35 text-[11px] md:text-[13px] hover:text-[#fcfdfb]/70 transition-colors duration-200"
+            >
+              Política de Privacidad
+            </a>
+            <span className="text-[#fcfdfb]/20 text-[11px]">·</span>
+            <a
+              href="/terminos"
+              className="font-[family-name:var(--font-inter)] text-[#fcfdfb]/35 text-[11px] md:text-[13px] hover:text-[#fcfdfb]/70 transition-colors duration-200"
+            >
+              Términos y Condiciones
+            </a>
+          </div>
+
           {/* Copyright */}
           <p className="font-[family-name:var(--font-inter)] text-[#fcfdfb]/30 text-[11px] md:text-[13px]">
-            &copy; {new Date().getFullYear()} Solo Luz. Todos los derechos reservados.
+            &copy; {new Date().getFullYear()} LuzMasoterapeuta. Todos los derechos reservados.
           </p>
 
         </div>

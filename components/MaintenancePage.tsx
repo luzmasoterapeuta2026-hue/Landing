@@ -5,7 +5,7 @@ export function MaintenancePage() {
     <div className="min-h-[100dvh] bg-[#fff7e8] flex flex-col items-center justify-center px-6 text-center">
       <Image
         src="/logo/trace.svg"
-        alt="Solo Luz"
+        alt="LuzMasoterapeuta"
         width={120}
         height={80}
         className="mb-10 opacity-80"
