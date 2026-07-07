@@ -12,7 +12,7 @@ const schema = {
       description:
         "Formación holística y servicios terapéuticos para terapeutas y personas que buscan sanar desde la raíz: masoterapia clínica, terapia vibracional, biodecodificación del dolor y armonización energética.",
       url: BASE_URL,
-      image: `${BASE_URL}/hero/hero-image.png`,
+      image: `${BASE_URL}/hero/hero-og.jpg`,
       logo: `${BASE_URL}/favicon/web-app-manifest-512x512.png`,
       telephone: "+5491123467200",
       priceRange: "$$",
