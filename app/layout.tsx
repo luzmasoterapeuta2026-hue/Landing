@@ -9,7 +9,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600"],
   style: ["normal", "italic"],
   variable: "--font-cormorant",
   display: "swap",
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/hero/hero-image.png",
+        url: "/hero/hero-og.jpg",
         width: 1200,
         height: 800,
         alt: "LuzMasoterapeuta — Alquimia y Bienestar",
@@ -82,7 +82,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "LuzMasoterapeuta — Formación holística y sanación desde la raíz",
     description: SITE_DESCRIPTION,
-    images: ["/hero/hero-image.png"],
+    images: ["/hero/hero-og.jpg"],
   },
 };
 

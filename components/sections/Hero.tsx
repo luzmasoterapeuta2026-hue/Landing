@@ -125,8 +125,10 @@ export function Hero() {
           alt="Espacio de sanacion holistica"
           fill
           className="object-cover object-bottom"
+          sizes="100vw"
+          quality={75}
           priority
-          unoptimized
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-[#2a2522]/75" />
       </div>
@@ -202,8 +204,10 @@ export function Hero() {
             alt="Espacio de sanacion holistica"
             fill
             className="object-cover object-top"
+            sizes="(min-width: 768px) 50vw, 0px"
+            quality={75}
             priority
-            unoptimized
+            fetchPriority="high"
           />
         </motion.div>
       </motion.div>
