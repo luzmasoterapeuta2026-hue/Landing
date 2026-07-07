@@ -26,7 +26,7 @@ export async function Courses() {
       <div className="relative z-10 max-w-7xl mx-auto">
         <FadeUp className="mb-14 text-center">
           <p className="font-[family-name:var(--font-inter)] text-[11px] md:text-[13px] tracking-[0.22em] uppercase text-[#dfa82b] mb-4">
-            Formaciones
+            Formaciones y Servicios
           </p>
           <h2
             className="font-[family-name:var(--font-cormorant)] text-[#fff7e8] font-light leading-tight"
@@ -35,9 +35,9 @@ export async function Courses() {
             Aprende a sanar{" "}
             <em className="text-[#dfa82b]">desde adentro</em>
           </h2>
-          <p className="font-[family-name:var(--font-inter)] text-[#fff7e8]/60 text-base md:text-lg mt-4 max-w-[50ch] leading-relaxed mx-auto">
-            Tecnica clinica, <em className="text-[#dfa82b] not-italic font-medium">sabiduria ancestral</em> y biodecodificacion emocional.
-            Para terapeutas que quieren <em className="text-[#dfa82b] not-italic font-medium">ir mas alla de la tecnica.</em>
+          <p className="font-[family-name:var(--font-inter)] text-[#fff7e8]/60 text-base md:text-lg mt-4 max-w-[52ch] leading-relaxed mx-auto">
+            Formaciones y servicios que unen <em className="text-[#dfa82b] not-italic font-medium">técnica clínica</em>, sabiduría ancestral y biodecodificación emocional.
+            Da el salto de aliviar síntomas a <em className="text-[#dfa82b] not-italic font-medium">acompañar transformaciones reales.</em>
           </p>
         </FadeUp>
 

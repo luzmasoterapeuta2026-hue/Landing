@@ -10,6 +10,7 @@ import {
   useSpring,
   type MotionValue,
 } from "motion/react";
+import { CaretDown } from "@phosphor-icons/react/dist/ssr";
 
 const ORBS = [
   { w: 500, h: 500, left: "2%", top: "5%", color: "#dfa82b", blur: 80, opacity: 0.42, dur: 13, fdur: 22.0, kx: [0, 45, -10, 0], ky: [0, 20, 40, 0], factor: 0.10 },
@@ -152,9 +153,9 @@ export function Hero() {
           animate="visible"
           className="font-[family-name:var(--font-cormorant)] text-[#fff7e8] md:text-[#2a2522] font-light leading-[1.05] mb-6 text-[clamp(2.8rem,6vw,5rem)] md:text-[clamp(4rem,7vw,7rem)]"
         >
-          Eleva tu practica.
+          Eleva tu práctica.
           <br />
-          <em className="text-[#dfa82b] md:text-[#965e5d]">Sana desde la raiz.</em>
+          <em className="text-[#dfa82b] md:text-[#965e5d]">Sana desde la raíz.</em>
         </motion.h1>
 
         <motion.p
@@ -163,43 +164,29 @@ export function Hero() {
           animate="visible"
           className="font-[family-name:var(--font-inter)] text-[#fff7e8]/75 md:text-[#2a2522]/65 text-base md:text-xl leading-relaxed max-w-[45ch] mb-10"
         >
-          Formacion holistica para terapeutas que quieren ir mas profundo,
-          tecnica, energia y sabiduria ancestral en un solo camino.
+          Formación holística para terapeutas que quieren ir más profundo.
+          Une técnica clínica, energía y sabiduría ancestral, y convierte
+          cada sesión en una experiencia que sana de verdad.
         </motion.p>
 
-        <motion.div
+        <motion.a
+          href="#cursos"
           variants={stagger(3)}
           initial="hidden"
           animate="visible"
-          className="flex flex-col sm:flex-row gap-4"
+          aria-label="Explorar"
+          className="group mt-14 md:mt-16 flex flex-col items-center gap-2.5 text-[#fff7e8]/55 md:text-[#2a2522]/40 hover:text-[#dfa82b] md:hover:text-[#965e5d] transition-colors duration-300"
         >
-          <a
-            href="#cursos"
-            className="font-[family-name:var(--font-inter)] text-sm bg-[#dfa82b] md:bg-[#965e5d] text-[#2a2522] md:text-[#fff7e8] px-8 py-3.5 rounded-full text-center font-medium hover:opacity-90 active:scale-[0.98] transition-all duration-200"
-          >
-            Ver cursos
-          </a>
-          <a
-            href="https://wa.me/5491123467200?text=Hola+Luz%2C+quiero+saber+mas+sobre+los+cursos"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-[family-name:var(--font-inter)] text-sm border border-[#fff7e8]/40 md:border-[#965e5d]/40 text-[#fff7e8] md:text-[#965e5d] px-8 py-3.5 rounded-full text-center hover:bg-[#fff7e8]/10 md:hover:bg-[#965e5d]/5 md:hover:border-[#965e5d] active:scale-[0.98] transition-all duration-200"
-          >
-            Escribir por WhatsApp
-          </a>
-        </motion.div>
-
-        <motion.div
-          variants={stagger(4)}
-          initial="hidden"
-          animate="visible"
-          className="mt-16 hidden md:flex items-center gap-2 text-[#2a2522]/30"
-        >
-          <span className="text-sm leading-none">↓</span>
-          <span className="font-[family-name:var(--font-inter)] text-[11px] tracking-widest uppercase">
+          <span className="font-[family-name:var(--font-inter)] text-[11px] tracking-[0.22em] uppercase">
             Explorar
           </span>
-        </motion.div>
+          <motion.span
+            animate={{ y: [0, 7, 0] }}
+            transition={{ duration: 1.7, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <CaretDown size={18} weight="bold" />
+          </motion.span>
+        </motion.a>
       </div>
 
       {/* Desktop right col: image with parallax + entrance animation */}

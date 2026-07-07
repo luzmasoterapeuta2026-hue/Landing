@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
-import { X, MapPin, Calendar, Clock, WhatsappLogo, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { X, MapPin, Calendar, Clock, Repeat, WhatsappLogo, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import type { Curso } from "@/lib/types";
 
 const CATEGORIA_COLORS: Record<string, string> = {
@@ -12,6 +12,15 @@ const CATEGORIA_COLORS: Record<string, string> = {
   "Energetico": "bg-[#dfa82b]/10 text-[#9a7020]",
   "Gabinete":   "bg-[#2a2522]/8 text-[#2a2522]/70",
 };
+
+const SERVICIO_COLOR = "bg-[#5c7a6b]/12 text-[#4a6356]";
+
+function badgeFor(curso: Curso): { label: string; colorClass: string } | null {
+  if (curso.tipo === "servicio")
+    return { label: curso.categoria || "Servicio", colorClass: SERVICIO_COLOR };
+  if (!curso.categoria) return null;
+  return { label: curso.categoria, colorClass: CATEGORIA_COLORS[curso.categoria] ?? "bg-[#965e5d]/10 text-[#965e5d]" };
+}
 
 const COURSE_FALLBACK_IMAGE = "/curses/background.webp";
 
@@ -32,22 +41,38 @@ function isSafeUrl(url: string | undefined): url is string {
 
 export function CourseModal({ curso, onClose }: { curso: Curso; onClose: () => void }) {
   const imageSrc = isValidImageSrc(curso.imagen) ? curso.imagen! : COURSE_FALLBACK_IMAGE;
-  const colorClass = CATEGORIA_COLORS[curso.categoria] ?? "bg-[#965e5d]/10 text-[#965e5d]";
+  const badge = badgeFor(curso);
+  const waIntro = curso.tipo === "servicio" ? "me+interesa+el+servicio" : "me+interesa+el+curso";
   const ctaHref =
     curso.cta_tipo === "formulario" && isSafeUrl(curso.cta_link)
       ? curso.cta_link
-      : `https://wa.me/5491123467200?text=Hola+Luz%2C+me+interesa+el+curso+${encodeURIComponent(curso.nombre)}`;
+      : `https://wa.me/5491123467200?text=Hola+Luz%2C+${waIntro}+${encodeURIComponent(curso.nombre)}`;
   const isExternal = curso.cta_tipo === "formulario";
 
+  // Ref so the lock effect can stay mount-only — parent re-renders (carousel autoplay)
+  // must NOT tear down / rebuild the scroll lock, or Lenis briefly restarts mid-scroll.
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+
   useEffect(() => {
-    document.body.style.overflow = "hidden";
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    const lenis = (window as unknown as { lenis?: { stop: () => void; start: () => void } }).lenis;
+    // Desktop: Lenis.stop() freezes scroll in place (preserves position, no jump).
+    lenis?.stop();
+
+    // Mobile (no Lenis): overflow:hidden holds the page WITHOUT resetting scrollY,
+    // so there is no position to restore and nothing to snap back to.
+    const body = document.body;
+    const prevOverflow = body.style.overflow;
+    body.style.overflow = "hidden";
+
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onCloseRef.current(); };
     document.addEventListener("keydown", onKey);
     return () => {
-      document.body.style.overflow = "";
+      body.style.overflow = prevOverflow;
+      lenis?.start();
       document.removeEventListener("keydown", onKey);
     };
-  }, [onClose]);
+  }, []);
 
   return (
     <motion.div
@@ -85,23 +110,34 @@ export function CourseModal({ curso, onClose }: { curso: Curso; onClose: () => v
           >
             <X size={18} weight="bold" />
           </button>
-          {curso.categoria && (
-            <span className={`absolute bottom-4 left-4 font-[family-name:var(--font-inter)] text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-full ${colorClass}`}>
-              {curso.categoria}
+          {badge && (
+            <span className={`absolute bottom-4 left-4 font-[family-name:var(--font-inter)] text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-full ${badge.colorClass}`}>
+              {badge.label}
             </span>
           )}
         </div>
 
         {/* Scrollable content */}
-        <div className="flex flex-col overflow-y-auto p-6 gap-4">
+        <div data-lenis-prevent className="flex flex-col overflow-y-auto overscroll-contain p-6 gap-4">
           <h2 className="font-[family-name:var(--font-cormorant)] text-[#2a2522] text-3xl md:text-4xl font-medium leading-snug">
             {curso.nombre}
           </h2>
+
+          {curso.subtitulo && (
+            <p className="font-[family-name:var(--font-cormorant)] text-[#965e5d] text-lg md:text-xl italic leading-snug -mt-1">
+              {curso.subtitulo}
+            </p>
+          )}
 
           <div className="flex flex-wrap gap-x-5 gap-y-2">
             {curso.modalidad && (
               <span className="flex items-center gap-1.5 font-[family-name:var(--font-inter)] text-[12px] text-[#2a2522]/60">
                 <MapPin size={13} weight="fill" className="text-[#965e5d]" /> {curso.modalidad}
+              </span>
+            )}
+            {curso.frecuencia && (
+              <span className="flex items-center gap-1.5 font-[family-name:var(--font-inter)] text-[12px] text-[#2a2522]/60">
+                <Repeat size={13} weight="bold" className="text-[#965e5d]" /> {curso.frecuencia}
               </span>
             )}
             {curso.fecha && (
@@ -119,9 +155,44 @@ export function CourseModal({ curso, onClose }: { curso: Curso; onClose: () => v
           <div className="h-px bg-[#965e5d]/10" />
 
           {curso.descripcion && (
-            <p className="font-[family-name:var(--font-inter)] text-[#2a2522]/70 text-sm leading-relaxed">
+            <p className="font-[family-name:var(--font-inter)] text-[#2a2522]/70 text-sm leading-relaxed whitespace-pre-line">
               {curso.descripcion}
             </p>
+          )}
+
+          {curso.bullets.length > 0 && (
+            <div className="flex flex-col gap-2.5">
+              {curso.bullets_titulo && (
+                <h3 className="font-[family-name:var(--font-cormorant)] text-[#2a2522] text-xl font-medium">
+                  {curso.bullets_titulo}
+                </h3>
+              )}
+              <ul className="flex flex-col gap-2">
+                {curso.bullets.map((b, i) => (
+                  <li key={i} className="flex gap-2.5 font-[family-name:var(--font-inter)] text-[#2a2522]/70 text-sm leading-relaxed">
+                    <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[#dfa82b]" />
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {curso.dirigido && (
+            <div className="flex flex-col gap-1.5">
+              <h3 className="font-[family-name:var(--font-cormorant)] text-[#2a2522] text-xl font-medium">
+                ¿A quién está dirigido?
+              </h3>
+              <p className="font-[family-name:var(--font-inter)] text-[#2a2522]/70 text-sm leading-relaxed">
+                {curso.dirigido}
+              </p>
+            </div>
+          )}
+
+          {curso.cita && (
+            <blockquote className="border-l-2 border-[#dfa82b] pl-4 font-[family-name:var(--font-cormorant)] text-[#2a2522]/75 text-lg italic leading-snug">
+              {curso.cita}
+            </blockquote>
           )}
 
           <div className="flex items-center justify-between pt-2">

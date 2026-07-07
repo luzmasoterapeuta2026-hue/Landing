@@ -56,9 +56,9 @@ export async function Videos() {
                 <em className="text-[#dfa82b]">las redes</em>
               </h2>
               <p className="font-[family-name:var(--font-inter)] text-[#fff7e8]/50 text-base md:text-lg leading-relaxed">
-                Contenido semanal para terapeutas que buscan{" "}
-                <em className="text-[#dfa82b] not-italic font-medium">ir mas alla de la tecnica.</em>{" "}
-                Reflexiones, herramientas y sabiduria holistica — cada semana.
+                Cada semana: reflexiones, herramientas y sabiduría holística para
+                terapeutas que buscan <em className="text-[#dfa82b] not-italic font-medium">ir más allá de la técnica.</em>{" "}
+                Sumate a la comunidad.
               </p>
             </div>
 
