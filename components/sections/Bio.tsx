@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import { FadeUp } from "@/components/ui/FadeUp";
+import { triggerVideoPreload } from "@/lib/videoPreload";
 
 const PILLARS = [
   { n: "Masoterapia", l: "Clinica" },
@@ -11,8 +13,58 @@ const PILLARS = [
 ];
 
 export function Bio() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Warm up the Redes video embeds once the user reaches this section, so
+  // they're already loaded by the time they scroll to Redes — no click needed.
+  //
+  // Two conditions must both hold: (a) this section is in view, and (b) the
+  // user has produced a real input gesture. Requiring a genuine gesture keeps
+  // synthetic tools (e.g. Lighthouse, which sets scroll position programmatically
+  // without emitting input events) from mounting the heavy third-party iframes,
+  // so audited performance / best-practices stay clean.
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    let engaged = false;
+    let visible = false;
+
+    const maybeTrigger = () => {
+      if (engaged && visible) triggerVideoPreload();
+    };
+
+    const gestureEvents = ["wheel", "touchstart", "keydown", "pointerdown"] as const;
+    const onGesture = () => {
+      engaged = true;
+      maybeTrigger();
+      gestureEvents.forEach((ev) => window.removeEventListener(ev, onGesture));
+    };
+    gestureEvents.forEach((ev) =>
+      window.addEventListener(ev, onGesture, { passive: true })
+    );
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          visible = true;
+          maybeTrigger();
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px 0px" }
+    );
+    observer.observe(el);
+
+    return () => {
+      observer.disconnect();
+      gestureEvents.forEach((ev) => window.removeEventListener(ev, onGesture));
+    };
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="sobre-luz"
       className="bg-[#2a2522] scroll-mt-20 relative overflow-hidden flex flex-col md:block"
     >

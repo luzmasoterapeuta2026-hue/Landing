@@ -155,9 +155,9 @@ export function Hero() {
           animate="visible"
           className="font-[family-name:var(--font-cormorant)] text-[#fff7e8] md:text-[#2a2522] font-light leading-[1.05] mb-6 text-[clamp(2.8rem,6vw,5rem)] md:text-[clamp(4rem,7vw,7rem)]"
         >
-          Eleva tu práctica.
+          Sana y aprende.
           <br />
-          <em className="text-[#dfa82b] md:text-[#965e5d]">Sana desde la raíz.</em>
+          <em className="text-[#dfa82b] md:text-[#965e5d]">Transforma desde la raíz.</em>
         </motion.h1>
 
         <motion.p
@@ -166,9 +166,11 @@ export function Hero() {
           animate="visible"
           className="font-[family-name:var(--font-inter)] text-[#fff7e8]/75 md:text-[#2a2522]/65 text-base md:text-xl leading-relaxed max-w-[45ch] mb-10"
         >
-          Formación holística para terapeutas que quieren ir más profundo.
-          Une técnica clínica, energía y sabiduría ancestral, y convierte
-          cada sesión en una experiencia que sana de verdad.
+          <em className="text-[#dfa82b] md:text-[#965e5d] not-italic font-medium">Masoterapia deportiva</em>,{" "}
+          <em className="text-[#dfa82b] md:text-[#965e5d] not-italic font-medium">biocodificación</em> y{" "}
+          <em className="text-[#dfa82b] md:text-[#965e5d] not-italic font-medium">sabiduría ancestral</em> en
+          un solo camino. Terapias que alivian el dolor real —
+          y formación para quienes eligen dedicar su vida a sanar.
         </motion.p>
 
         <motion.a
@@ -191,26 +193,23 @@ export function Hero() {
         </motion.a>
       </div>
 
-      {/* Desktop right col: image with parallax + entrance animation */}
-      <motion.div
-        className="hidden md:block relative overflow-hidden"
-        initial={{ x: "100%" }}
-        animate={{ x: 0 }}
-        transition={{ duration: 1.1, delay: 0.3, ease: EASE }}
-      >
+      {/* Desktop right col: image painted in place (LCP), parallax on scroll.
+          No entrance transform — an off-screen initial state would hide the LCP
+          element until hydration and wreck LCP. */}
+      <div className="hidden md:block relative overflow-hidden">
         <motion.div className="absolute -top-16 -bottom-16 left-0 right-0" style={{ y: imageY }}>
           <Image
             src="/hero/hero-desktop.webp"
             alt="Espacio de sanacion holistica"
             fill
             className="object-cover object-top"
-            sizes="(min-width: 768px) 50vw, 0px"
-            quality={75}
+            sizes="(min-width: 768px) 100vw, 0px"
+            quality={90}
             priority
             fetchPriority="high"
           />
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }
