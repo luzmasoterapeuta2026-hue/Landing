@@ -68,17 +68,17 @@ export function Bio() {
 
           <FadeUp delay={0.32} className="space-y-4 font-[family-name:var(--font-inter)] text-[#fff7e8]/65 text-[15px] md:text-[18px] leading-relaxed">
             <p>
-              La masoterapia no es solo una tecnica fisica —
-              es <em className="text-[#dfa82b] not-italic font-medium">un puente entre el cuerpo, la emocion y la energia.</em>
+              La masoterapia no es solo una técnica física —
+              es <em className="text-[#dfa82b] not-italic font-medium">un puente entre el cuerpo, la emoción y la energía.</em>
             </p>
             <p>
-              Combino <em className="text-[#dfa82b] not-italic font-medium">rigor anatomico</em> con
-              la sabiduria ancestral de sobadoras y curanderas de tradicion.
-              Porque el cuerpo no es una maquina: es <em className="text-[#dfa82b] not-italic font-medium">un mapa viviente de emociones.</em>
+              Combino el <em className="text-[#dfa82b] not-italic font-medium">rigor anatómico</em> con
+              la sabiduría ancestral de sobadoras y curanderas de tradición.
+              Porque el cuerpo no es una máquina: es <em className="text-[#dfa82b] not-italic font-medium">un mapa viviente de emociones.</em>
             </p>
             <p>
-              Formo terapeutas que ofrecen sesiones que no solo alivian —
-              que <em className="text-[#dfa82b] not-italic font-medium">transforman desde la raiz.</em>
+              Formo terapeutas capaces de dar sesiones que no solo alivian —
+              que <em className="text-[#dfa82b] not-italic font-medium">transforman desde la raíz.</em>
             </p>
           </FadeUp>
 
