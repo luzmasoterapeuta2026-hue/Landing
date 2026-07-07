@@ -4,16 +4,29 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { AnimatePresence } from "motion/react";
-import { MapPin, Calendar, Clock, WhatsappLogo, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { MapPin, Calendar, Clock, Repeat, WhatsappLogo, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import type { Curso } from "@/lib/types";
 import { CourseModal } from "./CourseModal";
 
+// Solid fills so the badge reads clearly over any card image
 const CATEGORIA_COLORS: Record<string, string> = {
-  "Tecnico": "bg-[#c45c3a]/20 text-[#e8856a]",
-  "Holistico": "bg-[#965e5d]/20 text-[#c48a89]",
-  "Energetico": "bg-[#dfa82b]/20 text-[#dfa82b]",
-  "Gabinete": "bg-[#fff7e8]/10 text-[#fff7e8]/70",
+  "Tecnico": "bg-[#c45c3a] text-white",
+  "Holistico": "bg-[#965e5d] text-white",
+  "Energetico": "bg-[#dfa82b] text-[#2a2522]",
+  "Gabinete": "bg-[#fff7e8] text-[#2a2522]",
 };
+
+// Servicios (ej. biodecodificacion a distancia) llevan badge propio, distinto de las formaciones
+const SERVICIO_COLOR = "bg-[#5c7a6b] text-white";
+
+const BADGE_FALLBACK = "bg-[#2a2522] text-[#fff7e8]";
+
+function badgeFor(curso: Curso): { label: string; colorClass: string } | null {
+  if (curso.tipo === "servicio")
+    return { label: curso.categoria || "Servicio", colorClass: SERVICIO_COLOR };
+  if (!curso.categoria) return null;
+  return { label: curso.categoria, colorClass: CATEGORIA_COLORS[curso.categoria] ?? BADGE_FALLBACK };
+}
 
 const COURSE_FALLBACK_IMAGE = "/curses/background.webp";
 
@@ -38,19 +51,21 @@ export function CourseCard({ curso }: { curso: Curso }) {
 
   useEffect(() => { setMounted(true); }, []);
 
-  const colorClass = CATEGORIA_COLORS[curso.categoria] ?? "bg-[#fff7e8]/10 text-[#fff7e8]/70";
+  const badge = badgeFor(curso);
   const imageSrc = isValidImageSrc(curso.imagen) ? curso.imagen! : COURSE_FALLBACK_IMAGE;
+  const waIntro = curso.tipo === "servicio" ? "me+interesa+el+servicio" : "me+interesa+el+curso";
   const ctaHref =
     curso.cta_tipo === "formulario" && isSafeUrl(curso.cta_link)
       ? curso.cta_link
-      : `https://wa.me/5491123467200?text=Hola+Luz%2C+me+interesa+el+curso+${encodeURIComponent(curso.nombre)}`;
+      : `https://wa.me/5491123467200?text=Hola+Luz%2C+${waIntro}+${encodeURIComponent(curso.nombre)}`;
   const isExternal = curso.cta_tipo === "formulario";
+  const preview = curso.subtitulo || curso.descripcion;
 
   return (
     <>
       <article
         onClick={() => setOpen(true)}
-        className="group cursor-pointer bg-[#fff7e8]/90 backdrop-blur-sm border border-[#2a2522]/8 rounded-2xl overflow-hidden flex flex-col hover:shadow-[0_8px_32px_rgba(42,37,34,0.12)] hover:-translate-y-1 transition-all duration-300"
+        className="group cursor-pointer h-[440px] bg-[#fff7e8]/90 backdrop-blur-sm border border-[#2a2522]/8 rounded-2xl overflow-hidden flex flex-col hover:shadow-[0_8px_32px_rgba(42,37,34,0.12)] hover:-translate-y-1 transition-all duration-300"
       >
         <div className="relative h-48 overflow-hidden flex-none">
           <Image
@@ -61,14 +76,14 @@ export function CourseCard({ curso }: { curso: Curso }) {
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#2a2522]/40 to-transparent" />
-          {curso.categoria && (
-            <span className={`absolute top-3 left-3 font-[family-name:var(--font-inter)] text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-full ${colorClass}`}>
-              {curso.categoria}
+          {badge && (
+            <span className={`absolute top-3 left-3 font-[family-name:var(--font-inter)] text-[10px] font-medium tracking-wider uppercase px-2.5 py-1 rounded-full shadow-[0_2px_8px_rgba(42,37,34,0.35)] ${badge.colorClass}`}>
+              {badge.label}
             </span>
           )}
         </div>
 
-        <div className="flex flex-col flex-1 p-5">
+        <div className="flex flex-col flex-1 min-h-0 p-5">
           <h3 className="font-[family-name:var(--font-cormorant)] text-[#2a2522] text-2xl font-medium leading-snug mb-3 line-clamp-1">
             {curso.nombre}
           </h3>
@@ -78,6 +93,12 @@ export function CourseCard({ curso }: { curso: Curso }) {
               <span className="flex items-center gap-1.5 font-[family-name:var(--font-inter)] text-[11px] text-[#2a2522]/55 truncate">
                 <MapPin size={12} weight="fill" className="text-[#2a2522]/60 flex-none" />
                 {curso.modalidad}
+              </span>
+            )}
+            {curso.frecuencia && (
+              <span className="flex items-center gap-1.5 font-[family-name:var(--font-inter)] text-[11px] text-[#2a2522]/55 truncate">
+                <Repeat size={12} weight="bold" className="text-[#2a2522]/60 flex-none" />
+                {curso.frecuencia}
               </span>
             )}
             {curso.fecha && (
@@ -94,9 +115,9 @@ export function CourseCard({ curso }: { curso: Curso }) {
             )}
           </div>
 
-          {curso.descripcion && (
-            <p className="font-[family-name:var(--font-inter)] text-[#2a2522]/60 text-sm leading-relaxed mb-4 flex-1 line-clamp-2">
-              {curso.descripcion}
+          {preview && (
+            <p className="font-[family-name:var(--font-inter)] text-[#2a2522]/60 text-sm leading-relaxed mb-4 flex-1 min-h-0 line-clamp-2">
+              {preview}
             </p>
           )}
 
