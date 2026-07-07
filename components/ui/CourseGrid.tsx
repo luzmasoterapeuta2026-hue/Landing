@@ -92,7 +92,7 @@ function DesktopCarousel({ courses }: { courses: Curso[] }) {
 
   return (
     <div>
-      <div ref={containerRef} className="overflow-hidden cursor-grab active:cursor-grabbing select-none">
+      <div ref={containerRef} className="overflow-hidden cursor-grab active:cursor-grabbing select-none py-3">
         <motion.div
           className="flex gap-6"
           drag="x"
@@ -201,7 +201,7 @@ function MobileCarousel({ courses }: { courses: Curso[] }) {
 
   return (
     <div>
-      <div ref={containerRef} className="-mx-6 overflow-hidden cursor-grab active:cursor-grabbing select-none pb-4">
+      <div ref={containerRef} className="-mx-6 overflow-hidden cursor-grab active:cursor-grabbing select-none pt-3 pb-4">
         <motion.div
           className="flex gap-6"
           drag="x"

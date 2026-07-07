@@ -13,6 +13,9 @@ export function SmoothScroll() {
       smoothWheel: true,
     });
 
+    // Exposed so modals can stop/start it while they lock the page scroll
+    (window as unknown as { lenis?: Lenis }).lenis = lenis;
+
     let rafId: number;
 
     function raf(time: number) {
@@ -25,6 +28,7 @@ export function SmoothScroll() {
     return () => {
       cancelAnimationFrame(rafId);
       lenis.destroy();
+      delete (window as unknown as { lenis?: Lenis }).lenis;
     };
   }, []);
 

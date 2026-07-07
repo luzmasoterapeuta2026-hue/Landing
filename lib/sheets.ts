@@ -73,22 +73,36 @@ async function fetchCsv(url: string): Promise<Record<string, string>[]> {
   }
 }
 
+function parseBullets(val: string): string[] {
+  return (val || "")
+    .split("|")
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
 export async function getCursos(): Promise<Curso[]> {
   const rows = await fetchCsv(CURSOS_URL);
   return rows
     .filter((r) => r.nombre && r.modalidad && toBool(r.activo))
     .map((r) => ({
       nombre: r.nombre,
+      tipo: (r.tipo === "servicio" ? "servicio" : "formacion") as "formacion" | "servicio",
       categoria: r.categoria || "",
       modalidad: r.modalidad,
+      frecuencia: r.frecuencia || "",
       fecha: r.fecha || "",
       duracion: r.duracion || "",
       precio: r.precio || "",
+      subtitulo: r.subtitulo || "",
       descripcion: r.descripcion || "",
+      bullets_titulo: r.bullets_titulo || "",
+      bullets: parseBullets(r.bullets),
+      dirigido: r.dirigido || "",
+      cita: r.cita || "",
       imagen: r.imagen || undefined,
       cta_tipo: (r.cta_tipo === "formulario" ? "formulario" : "whatsapp") as "whatsapp" | "formulario",
       cta_link: r.cta_link || undefined,
-      cta_texto: r.cta_texto || "Inscribirme",
+      cta_texto: r.cta_texto || (r.tipo === "servicio" ? "Reservar consulta" : "Inscribirme"),
       activo: true,
       orden: parseInt(r.orden) || 99,
     }))
