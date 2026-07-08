@@ -4,7 +4,7 @@ import { Footer } from "@/components/sections/Footer";
 
 export const metadata: Metadata = {
   title: "Términos y Condiciones — LuzMasoterapeuta",
-  description: "Condiciones generales de contratación de cursos, formaciones y materiales de LuzMasoterapeuta.",
+  description: "Condiciones generales de contratación de cursos, formaciones, servicios terapéuticos y materiales de LuzMasoterapeuta.",
 };
 
 export default function TerminosPage() {
@@ -20,7 +20,7 @@ export default function TerminosPage() {
             Términos y Condiciones
           </h1>
           <p className="font-[family-name:var(--font-inter)] text-sm text-[#2a2522]/50 mb-12 tracking-widest uppercase">
-            Última actualización: junio de 2026
+            Última actualización: julio de 2026
           </p>
 
           <div className="space-y-10 font-[family-name:var(--font-inter)] text-[#2a2522]/80 text-[15px] leading-relaxed">
@@ -31,8 +31,8 @@ export default function TerminosPage() {
               </h2>
               <p>
                 El presente sitio web (<em>luzmasoterapeuta.com</em>) es operado por <strong>LuzMasoterapeuta</strong>,
-                actividad de formación y venta de materiales educativos en el área del bienestar y la masoterapia
-                holística, con sede en la República Argentina. Contacto:{" "}
+                actividad de formación, prestación de servicios terapéuticos y venta de materiales educativos en el
+                área del bienestar y la masoterapia holística, con sede en la República Argentina. Contacto:{" "}
                 <a
                   href="https://wa.me/5491123467200"
                   className="text-[#965e5d] underline underline-offset-2 hover:text-[#dfa82b] transition-colors"
@@ -64,12 +64,17 @@ export default function TerminosPage() {
               <p>LuzMasoterapeuta ofrece:</p>
               <ul className="list-disc pl-5 space-y-2 mt-2">
                 <li>Cursos y formaciones en masoterapia clínica, terapias holísticas y abordaje energético.</li>
+                <li>
+                  Servicios terapéuticos y sesiones individuales —masoterapia clínica y deportiva,
+                  biocodificación y biodecodificación del dolor, terapia vibracional y armonización
+                  energética— en modalidad presencial o a distancia, según la prestación.
+                </li>
                 <li>Manuales y libros digitales y/o físicos sobre bienestar, sanación y desarrollo profesional.</li>
-                <li>Asesoramiento personalizado sobre qué formación se adapta a cada momento profesional.</li>
+                <li>Asesoramiento personalizado sobre qué formación o servicio se adapta a cada persona.</li>
               </ul>
               <p className="mt-3">
-                Los detalles de contenido, duración, modalidad y precio de cada producto o curso se informan
-                al momento de la consulta o en la descripción específica de cada oferta.
+                Los detalles de contenido, duración, modalidad y precio de cada curso, servicio o producto se
+                informan al momento de la consulta o en la descripción específica de cada oferta.
               </p>
             </div>
 
@@ -111,6 +116,11 @@ export default function TerminosPage() {
                   que el curso no haya comenzado.
                 </li>
                 <li>
+                  Para <strong>servicios y sesiones de terapia</strong>: podés reprogramar o cancelar tu turno
+                  con al menos <strong>24 horas</strong> de anticipación sin cargo. Las cancelaciones con menos
+                  aviso, o la ausencia sin aviso, podrán no ser reembolsables o computarse como sesión tomada.
+                </li>
+                <li>
                   Para <strong>materiales digitales</strong> (manuales, libros en formato digital) ya
                   entregados: no corresponde reembolso una vez que el acceso o descarga ha sido proporcionado,
                   salvo defecto en el material recibido.
@@ -148,10 +158,13 @@ export default function TerminosPage() {
                 8. Limitación de responsabilidad
               </h2>
               <p>
-                Los cursos y materiales de LuzMasoterapeuta tienen finalidad educativa y de desarrollo profesional.
-                No constituyen diagnóstico médico ni reemplazan la atención de profesionales de la salud
-                habilitados. LuzMasoterapeuta no se responsabiliza por el uso que cada persona haga de la
-                información y técnicas aprendidas.
+                Los cursos, materiales y servicios de LuzMasoterapeuta tienen finalidad educativa, terapéutica
+                complementaria y de bienestar. Las sesiones de masoterapia, biocodificación, terapia vibracional
+                y demás prestaciones <strong>complementan pero no reemplazan</strong> el diagnóstico, tratamiento
+                ni la atención de profesionales de la salud habilitados. Ante cualquier patología, lesión,
+                embarazo o condición médica, recomendamos consultar previamente a tu médico. LuzMasoterapeuta no
+                se responsabiliza por el uso que cada persona haga de la información y técnicas aprendidas ni por
+                decisiones tomadas a partir de ellas.
               </p>
               <p className="mt-2">
                 LuzMasoterapeuta tampoco se responsabiliza por interrupciones en el acceso al sitio web por causas

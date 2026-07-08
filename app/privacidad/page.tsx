@@ -20,7 +20,7 @@ export default function PrivacidadPage() {
             Política de Privacidad
           </h1>
           <p className="font-[family-name:var(--font-inter)] text-sm text-[#2a2522]/50 mb-12 tracking-widest uppercase">
-            Última actualización: junio de 2026
+            Última actualización: julio de 2026
           </p>
 
           <div className="space-y-10 font-[family-name:var(--font-inter)] text-[#2a2522]/80 text-[15px] leading-relaxed">
@@ -66,6 +66,11 @@ export default function PrivacidadPage() {
                 <li>
                   <strong>Cookies:</strong> utilizamos cookies técnicas necesarias para el funcionamiento del
                   sitio y cookies analíticas para estadísticas de visitas.
+                </li>
+                <li>
+                  <strong>Cookies de terceros:</strong> al cargar contenido embebido de redes sociales
+                  (reels y videos de Instagram y TikTok), dichas plataformas pueden instalar sus propias
+                  cookies en tu dispositivo. Ver el punto 8 para más detalle.
                 </li>
               </ul>
             </div>
@@ -138,7 +143,42 @@ export default function PrivacidadPage() {
 
             <div>
               <h2 className="font-[family-name:var(--font-cormorant)] text-2xl font-medium text-[#2a2522] mb-3">
-                8. Cambios en esta política
+                8. Contenido embebido de redes sociales
+              </h2>
+              <p>
+                La sección de contenidos de este sitio muestra reels y videos alojados en{" "}
+                <strong>Instagram</strong> y <strong>TikTok</strong> mediante contenido embebido (iframes).
+                Estos videos no se cargan de forma automática: se activan recién cuando avanzás por el sitio
+                o hacés clic, con el fin de reducir el intercambio de datos con terceros.
+              </p>
+              <p className="mt-2">
+                Cuando ese contenido se carga, Instagram (Meta Platforms, Inc.) y TikTok pueden recopilar
+                información de tu dispositivo e instalar sus propias cookies, conforme a sus respectivas
+                políticas de privacidad, sobre las cuales LuzMasoterapeuta no tiene control. Te recomendamos
+                consultar la{" "}
+                <a
+                  href="https://privacycenter.instagram.com/policy"
+                  className="text-[#965e5d] underline underline-offset-2 hover:text-[#dfa82b] transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Política de Privacidad de Instagram
+                </a>{" "}
+                y la{" "}
+                <a
+                  href="https://www.tiktok.com/legal/page/row/privacy-policy/es"
+                  className="text-[#965e5d] underline underline-offset-2 hover:text-[#dfa82b] transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Política de Privacidad de TikTok
+                </a>.
+              </p>
+            </div>
+
+            <div>
+              <h2 className="font-[family-name:var(--font-cormorant)] text-2xl font-medium text-[#2a2522] mb-3">
+                9. Cambios en esta política
               </h2>
               <p>
                 Podemos actualizar esta Política de Privacidad periódicamente. La fecha de última actualización
