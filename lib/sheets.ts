@@ -47,10 +47,21 @@ function toBool(val: string): boolean {
   return val.trim().toUpperCase() === "TRUE";
 }
 
+// How often the server-cached Sheets data is refreshed.
+//   - Development: always fresh (revalidate 0) so edits show up immediately.
+//   - Production: revalidates every hour by default. Set
+//     SHEETS_HOURLY_REVALIDATE=false (or 0/off/no) to disable the hourly
+//     refresh entirely — data is then cached until the next deploy.
+function revalidateSeconds(): number | false {
+  if (process.env.NODE_ENV === "development") return 0;
+  const flag = (process.env.SHEETS_HOURLY_REVALIDATE ?? "true").trim().toLowerCase();
+  const disabled = flag === "false" || flag === "0" || flag === "off" || flag === "no";
+  return disabled ? false : 3600;
+}
+
 async function fetchCsv(url: string): Promise<Record<string, string>[]> {
   try {
-    const isDev = process.env.NODE_ENV === "development";
-    const res = await fetch(url, { next: { revalidate: isDev ? 0 : 3600 } });
+    const res = await fetch(url, { next: { revalidate: revalidateSeconds() } });
     if (!res.ok) {
       if (process.env.NODE_ENV !== "production") {
         console.error(`[sheets] fetch failed ${res.status} ${res.statusText} — ${url}`);
