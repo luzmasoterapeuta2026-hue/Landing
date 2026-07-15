@@ -47,21 +47,19 @@ function toBool(val: string): boolean {
   return val.trim().toUpperCase() === "TRUE";
 }
 
-// How often the server-cached Sheets data is refreshed.
-//   - Development: always fresh (revalidate 0) so edits show up immediately.
-//   - Production: revalidates every hour by default. Set
-//     SHEETS_HOURLY_REVALIDATE=false (or 0/off/no) to disable the hourly
-//     refresh entirely — data is then cached until the next deploy.
-function revalidateSeconds(): number | false {
-  if (process.env.NODE_ENV === "development") return 0;
-  const flag = (process.env.SHEETS_HOURLY_REVALIDATE ?? "true").trim().toLowerCase();
-  const disabled = flag === "false" || flag === "0" || flag === "off" || flag === "no";
-  return disabled ? false : 3600;
-}
+type FetchOpts = { fresh?: boolean };
 
-async function fetchCsv(url: string): Promise<Record<string, string>[]> {
+// `fresh: true` bypasses the ISR cache entirely (cache: "no-store"), used by the
+// live-refresh API route so an already-open page can pull the latest Sheets data
+// without a reload. The default path keeps the normal cache: always fresh in dev,
+// revalidated hourly in production.
+async function fetchCsv(url: string, opts?: FetchOpts): Promise<Record<string, string>[]> {
   try {
-    const res = await fetch(url, { next: { revalidate: revalidateSeconds() } });
+    const isDev = process.env.NODE_ENV === "development";
+    const init: RequestInit = opts?.fresh
+      ? { cache: "no-store" }
+      : { next: { revalidate: isDev ? 0 : 3600 } };
+    const res = await fetch(url, init);
     if (!res.ok) {
       if (process.env.NODE_ENV !== "production") {
         console.error(`[sheets] fetch failed ${res.status} ${res.statusText} — ${url}`);
@@ -91,8 +89,8 @@ function parseBullets(val: string): string[] {
     .filter(Boolean);
 }
 
-export async function getCursos(): Promise<Curso[]> {
-  const rows = await fetchCsv(CURSOS_URL);
+export async function getCursos(opts?: FetchOpts): Promise<Curso[]> {
+  const rows = await fetchCsv(CURSOS_URL, opts);
   return rows
     .filter((r) => r.nombre && r.modalidad && toBool(r.activo))
     .map((r) => ({
@@ -120,8 +118,8 @@ export async function getCursos(): Promise<Curso[]> {
     .sort((a, b) => a.orden - b.orden);
 }
 
-export async function getVideos(): Promise<Video[]> {
-  const rows = await fetchCsv(VIDEOS_URL);
+export async function getVideos(opts?: FetchOpts): Promise<Video[]> {
+  const rows = await fetchCsv(VIDEOS_URL, opts);
   return rows
     .filter((r) => r.url && toBool(r.activo))
     .map((r) => ({

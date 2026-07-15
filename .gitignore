@@ -9,3 +9,4 @@ tsconfig.tsbuildinfo
 docs/
 pnpm-lock.yaml
 pnpm-workspace.yaml
+.env.local

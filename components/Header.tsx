@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { List, X } from "@phosphor-icons/react";
 
 const NAV_ANCHORS = [
-  { label: "Cursos", anchor: "#cursos" },
+  { label: "Servicios", anchor: "#cursos" },
   { label: "Sobre Luz", anchor: "#sobre-luz" },
   { label: "Redes", anchor: "#videos" },
 ];
