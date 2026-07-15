@@ -5,6 +5,7 @@ import { motion, type PanInfo } from "motion/react";
 import type { Curso } from "@/lib/types";
 import { CourseCard } from "@/components/ui/CourseCard";
 import { ComingSoon } from "@/components/ui/ComingSoon";
+import { useLiveSheets } from "@/lib/useLiveSheets";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react/dist/ssr";
 
 const GAP = 24;
@@ -241,16 +242,18 @@ function MobileCarousel({ courses }: { courses: Curso[] }) {
 }
 
 export function CourseGrid({ courses }: { courses: Curso[] }) {
-  if (courses.length === 0)
+  const liveCourses = useLiveSheets<Curso>("cursos", courses);
+
+  if (liveCourses.length === 0)
     return <ComingSoon label="Los proximos cursos estaran disponibles en breve." />;
 
   return (
     <>
       <div className="md:hidden">
-        <MobileCarousel courses={courses} />
+        <MobileCarousel courses={liveCourses} />
       </div>
       <div className="hidden md:block">
-        <DesktopCarousel courses={courses} />
+        <DesktopCarousel courses={liveCourses} />
       </div>
     </>
   );
