@@ -1,7 +1,7 @@
 import { WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 
 const WA_HREF =
-  "https://wa.me/5491123467200?text=Hola+Luz%2C+quiero+saber+mas";
+  "https://wa.me/5491123467200?text=Hola%20Luz,%20quiero%20contactarte.";
 
 export function FloatingWhatsApp() {
   return (
