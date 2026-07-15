@@ -5,6 +5,7 @@ import { motion, type PanInfo } from "motion/react";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react/dist/ssr";
 import type { Video } from "@/lib/types";
 import { VideoEmbed } from "@/components/ui/VideoEmbed";
+import { useLiveSheets } from "@/lib/useLiveSheets";
 
 const GAP = 24;
 const AUTO_MS = 5000;
@@ -183,16 +184,17 @@ function Carousel({
 }
 
 export function VideoCarousel({ videos }: { videos: Video[] }) {
+  const liveVideos = useLiveSheets<Video>("videos", videos);
   const desktopCardW = (w: number) => (w - GAP * 2) / 3;
   const mobileCardW  = (w: number) => w * 0.8;
 
   return (
     <>
       <div className="md:hidden">
-        <Carousel videos={videos} visible={1} cardWidthFn={mobileCardW} />
+        <Carousel videos={liveVideos} visible={1} cardWidthFn={mobileCardW} />
       </div>
       <div className="hidden md:block">
-        <Carousel videos={videos} visible={3} cardWidthFn={desktopCardW} />
+        <Carousel videos={liveVideos} visible={3} cardWidthFn={desktopCardW} />
       </div>
     </>
   );
